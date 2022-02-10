@@ -1,9 +1,14 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/DevonCurtis')
+  .then(res => {
+    document.querySelector('.cards').appendChild(githubCard(res.data));
+  })
+  .catch(err => console.error(err));
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -29,6 +34,45 @@
 */
 
 const followersArray = [];
+
+function githubCard(info){
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const caInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const proLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  img.src = info.avatar_url;
+  img.alt = "github user";
+  name.textContent = info.name;
+  userName.textContent = info.login;
+  location.textContent = info.location;
+  profile.textContent = "Profile";
+  proLink.textContent = "Profile Link";
+  proLink.href = info.html_url;
+  followers.textContent = `Followers: ${info.followers}`;
+  following.textContent = `Following: ${info.following}`;
+  bio.textContent = info.bio;
+
+  card.appendChild(img);
+  card.appendChild(caInfo);
+  card.appendChild(name);
+  card.appendChild(userName);
+  card.appendChild(location);
+  card.appendChild(profile);
+  profile.appendChild(proLink);
+  caInfo.appendChild(followers);
+  caInfo.appendChild(following);
+  caInfo.appendChild(bio);
+
+  return card;
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
