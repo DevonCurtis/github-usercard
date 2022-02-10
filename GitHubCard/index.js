@@ -4,11 +4,20 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/DevonCurtis')
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+for (let i = 0; i < followersArray.length; i++) {
+  getGitCard(followersArray[i]);
+}
+
+function getGitCard(username) {
+  axios.get(`https://api.github.com/users/${username}`)
   .then(res => {
     document.querySelector('.cards').appendChild(githubCard(res.data));
   })
   .catch(err => console.error(err));
+}
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -33,7 +42,6 @@ axios.get('https://api.github.com/users/DevonCurtis')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 function githubCard(info){
   const card = document.createElement('div');
@@ -67,10 +75,10 @@ function githubCard(info){
 
   card.appendChild(img);
   card.appendChild(caInfo);
-  card.appendChild(name);
-  card.appendChild(userName);
-  card.appendChild(location);
-  card.appendChild(profile);
+  caInfo.appendChild(name);
+  caInfo.appendChild(userName);
+  caInfo.appendChild(location);
+  caInfo.appendChild(profile);
   profile.appendChild(proLink);
   caInfo.appendChild(followers);
   caInfo.appendChild(following);
