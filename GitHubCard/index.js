@@ -48,6 +48,11 @@ function githubCard(info){
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
+  card.classList.add('card');
+  caInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
   img.src = info.avatar_url;
   img.alt = "github user";
   name.textContent = info.name;
